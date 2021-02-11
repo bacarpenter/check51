@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "/Users/bencarpenter/Code/check51/env/bin/python3",
+    "python.formatting.provider": "black"
+}
