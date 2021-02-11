@@ -26,7 +26,7 @@ setup(
     packages=["check50", "check50.renderer"],
     python_requires=">= 3.6",
     entry_points={
-        "console_scripts": ["check50=check50.__main__:main"]
+        "console_scripts": ["check51=check50.__main__:main"]
     },
     url="https://github.com/cs50/check50",
     version="3.2.0",
