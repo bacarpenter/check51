@@ -101,3 +101,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+demo/tests/outputs/*
+demo/tests/__init__.py

@@ -23,6 +23,7 @@ import termcolor
 
 from . import _exceptions, internal, renderer, __version__
 from .runner import CheckRunner
+from datetime import datetime
 
 LOGGER = logging.getLogger("check50")
 
@@ -485,9 +486,13 @@ def main():
                     )
                 else:
                     if args.local:
-                        html = renderer.to_html(**results)
-                        with tempfile.NamedTemporaryFile(
-                            mode="w", delete=False, suffix=".html"
+                        html = renderer.to_html(
+                            **results
+                        )  # The HTML text that needs to go into the file.
+                        outputDir = input("Path to output directory: ")
+                        with open(
+                            f"{outputDir}/test{datetime.now().isoformat()}.html",
+                            "x+",
                         ) as html_file:
                             html_file.write(html)
                         url = f"file://{html_file.name}"
