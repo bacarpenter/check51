@@ -6,15 +6,15 @@ if __import__("os").name == "nt":
 from setuptools import setup
 
 setup(
-    author="CS50",
-    author_email="sysadmins@cs50.harvard.edu",
+    author="Ben Carpenter",
+    author_email="bacarpenter04@gmail.ocm",
     classifiers=[
         "Intended Audience :: Education",
         "Programming Language :: Python :: 3",
         "Topic :: Education",
         "Topic :: Utilities",
     ],
-    description="This is check50, with which you can check solutions to problems for CS50.",
+    description="This is check501, built on top of check50 (https://github.com/cs50/check50)",
     license="GPLv3",
     message_extractors={
         "check50": [
@@ -32,12 +32,12 @@ setup(
         "jinja2>=2.10",
     ],
     extras_require={"develop": ["sphinx", "sphinx-autobuild", "sphinx_rtd_theme"]},
-    keywords=["check", "check50"],
+    keywords=["check", "check51"],
     name="check51",
     packages=["check50", "check50.renderer"],
     python_requires=">= 3.6",
     entry_points={"console_scripts": ["check51=check50.__main__:main"]},
-    url="https://github.com/cs50/check50",
+    url="https://github.com/bacarpenter/check51",
     version="3.2.0",
     include_package_data=True,
 )
