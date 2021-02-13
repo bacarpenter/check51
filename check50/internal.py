@@ -41,6 +41,7 @@ class Register:
     Class with which functions can be registered to run before / after checks.
     :data:`check50.internal.register` should be the sole instance of this class.
     """
+
     def __init__(self):
         self._before_everies = []
         self._after_everies = []
@@ -52,7 +53,8 @@ class Register:
         :param func: callback to run after check
         :raises check50.internal.Error: if called when no check is being run"""
         if not check_running:
-            raise _exceptions.Error("cannot register callback to run after check when no check is running")
+            raise _exceptions.Error(
+                "cannot register callback to run after check when no check is running")
         self._after_checks.append(func)
 
     def after_every(self, func):
@@ -61,7 +63,8 @@ class Register:
         :param func: callback to be run after every check
         :raises check50.internal.Error: if called when a check is being run"""
         if check_running:
-            raise _exceptions.Error("cannot register callback to run after every check when check is running")
+            raise _exceptions.Error(
+                "cannot register callback to run after every check when check is running")
         self._after_everies.append(func)
 
     def before_every(self, func):
@@ -71,7 +74,8 @@ class Register:
         :raises check50.internal.Error: if called when a check is being run"""
 
         if check_running:
-            raise _exceptions.Error("cannot register callback to run before every check when check is running")
+            raise _exceptions.Error(
+                "cannot register callback to run before every check when check is running")
         self._before_everies.append(func)
 
     def __enter__(self):
@@ -122,14 +126,16 @@ def load_config(check_dir):
     try:
         config_file = lib50.config.get_config_filepath(check_dir)
     except lib50.Error:
-        raise _exceptions.Error(_("Invalid slug for check50. Did you mean something else?"))
+        raise _exceptions.Error(
+            _("Invalid slug for check50. Did you mean something else?"))
 
     # Load config
     with open(config_file) as f:
         try:
             config = CONFIG_LOADER.load(f.read())
         except lib50.InvalidConfigError:
-            raise _exceptions.Error(_("Invalid slug for check50. Did you mean something else?"))
+            raise _exceptions.Error(
+                _("Invalid slug for check50. Did you mean something else?"))
 
     # Update the config with defaults
     if isinstance(config, dict):
@@ -157,12 +163,6 @@ def compile_checks(checks, prompt=False, out_file="__init__.py"):
     :returns: ``out_file``
     :rtype: str
     """
-
-    file_path = check_dir / out_file
-    # Prompt to replace __init__.py (compile destination)
-    if prompt and file_path.exists():
-        if not _yes_no_prompt("check50 will compile the YAML checks to __init__.py, are you sure you want to overwrite its contents?"):
-            raise _exceptions.Error("Aborting: could not overwrite to __init__.py")
 
     # Compile simple checks
     with open(check_dir / out_file, "w") as f:
