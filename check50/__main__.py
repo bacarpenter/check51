@@ -55,7 +55,8 @@ class ColoredFormatter(logging.Formatter):
             msg
             if not self.use_color
             else termcolor.colored(
-                msg, getattr(record, "color", self.COLORS.get(record.levelname))
+                msg, getattr(record, "color",
+                             self.COLORS.get(record.levelname))
             )
         )
 
@@ -81,7 +82,8 @@ def install_dependencies(dependencies):
             for dependency in dependencies:
                 f.write(f"{dependency}\n")
 
-        pip = [sys.executable or "python3", "-m", "pip", "install", "-r", req_file]
+        pip = [sys.executable or "python3", "-m",
+               "pip", "install", "-r", req_file]
         # Unless we are in a virtualenv, we need --user
         if sys.base_prefix == sys.prefix and not hasattr(sys, "real_prefix"):
             pip.append("--user")
@@ -282,7 +284,8 @@ def process_args(args):
     seen_output = []
     for output in args.output:
         if output in seen_output:
-            LOGGER.warning(_("Duplicate output format specified: {}").format(output))
+            LOGGER.warning(
+                _("Duplicate output format specified: {}").format(output))
         else:
             seen_output.append(output)
 
@@ -312,7 +315,8 @@ def main():
         prog="check50", formatter_class=argparse.RawTextHelpFormatter
     )
 
-    parser.add_argument("slug", help=_("prescribed identifier of work to check"))
+    parser.add_argument("slug", help=_(
+        "prescribed identifier of work to check"))
     parser.add_argument(
         "-d",
         "--dev",
@@ -394,6 +398,11 @@ def main():
     # Set excepthook
     _exceptions.ExceptHook.initialize(args.output, args.output_file)
 
+    # Force --dev mode on!
+    args.dev = True
+    args.local = True
+    args.log_level = "info"  # """
+
     # If remote, push files to GitHub and await results
     if not args.local:
         commit_hash = lib50.push(
@@ -409,10 +418,12 @@ def main():
         with lib50.ProgressBar("Checking") if "ansi" in args.output else nullcontext():
             # If developing, assume slug is a path to check_dir
             if args.dev:
+                # Note: internal.check_DIR is the location of the slug
                 internal.check_dir = Path(internal.slug).expanduser().resolve()
+
                 if not internal.check_dir.is_dir():
                     raise _exceptions.Error(
-                        _("{} is not a directory").format(internal.check_dir)
+                        ("{} is not a directory").format(internal.check_dir)
                     )
             # Otherwise have lib50 create a local copy of slug
             else:
@@ -427,7 +438,8 @@ def main():
                         ).format(internal.slug)
                     )
                 except lib50.InvalidSlugError:
-                    raise_invalid_slug(internal.slug, offline=args.no_download_checks)
+                    raise_invalid_slug(
+                        internal.slug, offline=args.no_download_checks)
 
             # Load config
             config = internal.load_config(internal.check_dir)
@@ -476,7 +488,8 @@ def main():
                 output_file.write(renderer.to_json(**results))
                 output_file.write("\n")
             elif output == "ansi":
-                output_file.write(renderer.to_ansi(**results, _log=args.ansi_log))
+                output_file.write(renderer.to_ansi(
+                    **results, _log=args.ansi_log))
                 output_file.write("\n")
             elif output == "html":
                 if os.environ.get("CS50_IDE_TYPE") and args.local:
@@ -489,7 +502,7 @@ def main():
                         html = renderer.to_html(
                             **results
                         )  # The HTML text that needs to go into the file.
-                        outputDir = input("Path to output directory: ")
+                        outputDir = f"{internal.check_dir}/outputs"
                         with open(
                             f"{outputDir}/test{datetime.now().isoformat()}.html",
                             "x+",
