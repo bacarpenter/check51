@@ -2,6 +2,11 @@
 
 A local focused, easy to use, testing program, built on top of [check50](https://github.com/cs50/check50).
 
+1. [Installation](https://github.com/bacarpenter/check51/tree/main#installation)
+2. [Writing Checks](https://github.com/bacarpenter/check51/tree/main#installation)
+3. [Running Checks](https://github.com/bacarpenter/check51/tree/main#running-checks)
+4. [License](https://github.com/bacarpenter/check51/tree/main#running-checks)
+
 ## Installation
 
 Install the python package by:
