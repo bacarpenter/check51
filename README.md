@@ -72,6 +72,10 @@ In this directory, you will find the `test{TIMESTAMP}.html` files the `check51` 
 
 To run your checks, use `check51 tests/` (assuming you used the project structure above). Then view the outputs in both the console, and the browser.
 
+### Compiled Languages
+
+Compiled lanuages, such as C or Java, need to be compiled before testing, or, each -run should include a compile statment. Becuase of the way tests are (some what) sand-boxed, writing a "compile test", will not work.
+
 ## License
 
 Licensed under the [GNU General Public License v3.0](https://github.com/bacarpenter/check51/blob/main/LICENSE), as was the base project. This license is included in good faith and to the best of my ability. 
